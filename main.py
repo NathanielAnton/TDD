@@ -5,6 +5,14 @@ def create_empty_board(n: int) -> List[List[str]]:
         return []
     return [["O" for _ in range(n)] for _ in range(n)]
 
+def place_queen(board: List[List[str]], row: int, col: int) -> List[List[str]]:
+    n = len(board)
+    if not (0 <= row < n and 0 <= col < n):
+        return board 
+
+    board[row][col] = "#" 
+    return board
+
 def print_board(board: List[List[str]]) -> None:
     for row in board:
         print("".join(row))
