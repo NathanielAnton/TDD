@@ -48,6 +48,27 @@ def is_safe(board: List[List[str]], row: int, col: int, n: int) -> bool:
 
     return True
 
+def solve_n_queens(n: int) -> List[List[str]]:
+    if n <= 0:
+        return [] 
+
+    solutions = []  
+
+    def backtrack(row: int, board: List[List[str]]):
+        if row == n:
+            solutions.append(["".join(line) for line in board])  
+            return
+
+        for col in range(n):
+            if is_safe(board, row, col, n):
+                new_board = [line[:] for line in board]  
+                new_board = place_queen(new_board, row, col) 
+                backtrack(row + 1, new_board) 
+
+    empty_board = create_empty_board(n)
+    backtrack(0, empty_board)
+    return solutions
+
 def print_board(board: List[List[str]]) -> None:
     for row in board:
         print("".join(row))
@@ -64,5 +85,13 @@ if __name__ == "__main__":
         except ValueError:
             print("Veuillez entrer un nombre entier valide.")
 
-    empty_board = create_empty_board(n)
-    print_board(empty_board)
+    solutions = solve_n_queens(n)
+
+    if not solutions:
+        print(f"Aucune solution trouvée pour N={n}.")
+    else:
+        print(f"{len(solutions)} solution(s) trouvée(s) pour N={n} :\n")
+        for index, board in enumerate(solutions, start=1):
+            print(f"Solution {index}:")
+            print_board(board)
+
