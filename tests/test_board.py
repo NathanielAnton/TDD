@@ -29,5 +29,14 @@ class TestBoardCreation(unittest.TestCase):
         expected: List[List[str]] = []
         self.assertEqual(create_empty_board(-3), expected)
 
+    def test_non_integer_values(self):
+        """Test avec des valeurs non entières (devrait retourner une liste vide)"""
+        expected: List[List[str]] = []
+        self.assertEqual(create_empty_board("4"), expected)
+        self.assertEqual(create_empty_board(4.5), expected)
+        self.assertEqual(create_empty_board(None), expected)
+        self.assertEqual(create_empty_board([]), expected)
+        self.assertEqual(create_empty_board({}), expected)
+
 if __name__ == "__main__":
     unittest.main()
