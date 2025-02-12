@@ -13,10 +13,45 @@ def place_queen(board: List[List[str]], row: int, col: int) -> List[List[str]]:
     board[row][col] = "#" 
     return board
 
+def is_safe(board: List[List[str]], row: int, col: int, n: int) -> bool:
+    for i in range(row):
+        if board[i][col] == "#":
+            return False
+
+    i, j = row, col
+    while i >= 0 and j >= 0:
+        if board[i][j] == "#":
+            return False
+        i -= 1
+        j -= 1
+
+    i, j = row, col
+    while i >= 0 and j < n:
+        if board[i][j] == "#":
+            return False
+        i -= 1
+        j += 1
+
+    i, j = row, col
+    while i < n and j >= 0:
+        if board[i][j] == "#":
+            return False
+        i += 1
+        j -= 1
+
+    i, j = row, col
+    while i < n and j < n:
+        if board[i][j] == "#":
+            return False
+        i += 1
+        j += 1
+
+    return True
+
 def print_board(board: List[List[str]]) -> None:
     for row in board:
         print("".join(row))
-    print() 
+    print()
 
 if __name__ == "__main__":
     while True:
